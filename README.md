@@ -1,4 +1,4 @@
-# VBDatacontract2TSInterfacef
+# VBDatacontract2TSInterface
 Converts VB.NET DataContract to Typescript interfaces
 
 ## Example
