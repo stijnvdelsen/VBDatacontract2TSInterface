@@ -1,7 +1,7 @@
 const Tabs = 4;
 
 const Regex_ClassName = /Public Class ([a-zA-Z0-9\-_\.]*)/gm;
-const Regex_Datemembers = /[a-zA-Z]* Property ([a-zA-Z0-9\-_\.]*) As ([a-zA-Z]*)/gm;
+const Regex_Datemembers = /[a-zA-Z]* Property ([a-zA-Z0-9\-_\.]*)\(?\)? As ([a-zA-Z]*)/gm;
 
 const Types = {
 	"Guid": "string",
