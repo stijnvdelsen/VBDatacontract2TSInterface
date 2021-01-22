@@ -1,0 +1,25 @@
+body {
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	margin-top: 30px;
+}
+
+form, .output {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+input, textarea, button, .divider {
+	margin-bottom: 15px;
+}
+
+.divider {
+	width: 100%;
+	height: 2px;
+	background-color: #000;
+}
