@@ -1,7 +1,7 @@
 const Tabs = 4;
 
 const Regex_ClassName = /Public Class ([a-zA-Z0-9\-_\.]*)/gm;
-const Regex_Datemembers = /[a-zA-Z]* Property ([a-zA-Z0-9\-_\.]*)\(?\)? As ([a-zA-Z]*)/gm;
+const Regex_Datemembers = /[a-zA-Z]* Property ([a-zA-Z0-9\-_\.]*)\(?\)? As ([a-zA-Z]*)(?:\(Of (\S*)\))?/gm;
 
 const Types = {
 	"Guid": "string",
@@ -51,16 +51,24 @@ const extractDatamembers = (datacontract) => {
 	        Regex_Datemembers.lastIndex++;
 	    }
 	    
-	    datamembers.push(createDatemember(m[1], m[2]));
+	    let propertyName = m[1];
+	    let propertyType = m[2];
+	    let t = m[3]
+
+	    datamembers.push(createDatemember(propertyName, propertyType, t));
 	}
 
 	return datamembers;
 
 };
 
-const createDatemember = (property, type) => {
+const createDatemember = (property, type, t) => {
 	let datamember = []
 	let cType = Types[type];
+
+	if (!cType && (type === "List" || type === "IEnumerable")) {
+		cType = `${Types[t] || t}[]`;
+	}
 
 	datamember.push(property);
 	datamember.push(cType || type);
@@ -82,3 +90,17 @@ const createInterface = (className, properties) => {
 	return interface += `}`;
 
 };
+
+const convertListToArray = (type) => {
+
+	const regex = /List<(.*?)>/gm;
+
+	if (!type.includes("List")) return type;
+
+	let match = regex.exec(type)
+
+	console.log(match);
+	console.log(type);
+
+	return `${match[1]}[]`
+}
